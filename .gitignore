@@ -1,0 +1,50 @@
+## Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+build/
+bld/
+[Bb]in/
+[Oo]bj/
+
+## Visual Studio specific files
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+## Visual Studio Code settings
+.vscode/
+
+## Rider
+.idea/
+*.sln.iml
+
+## NuGet Packages
+*.nupkg
+# Pasta global de pacotes do NuGet, se houver
+.nuget/
+
+## Auto-generated files
+*.log
+*.vspscc
+*_i.c
+*_p.c
+*_h.h
+
+## Test Results
+TestResults/
+
+## OS generated files
+[Tt]humbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+## Outros arquivos temporários
+*.tmp
+
+appsettings.json
+appsettings.Development.json
