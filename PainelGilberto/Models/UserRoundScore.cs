@@ -4,22 +4,20 @@ using System.Text.Json.Serialization;
 
 namespace PainelGilberto.Models
 {
-    [Table("UserRoundScores")]
     public class UserRoundScore
     {
         [Key]
         public int Id { get; set; }
 
-        [Required]
+        [ForeignKey("User")]
         public int UserId { get; set; }
 
-        [Required]
+        [ForeignKey("Round")]
         public int RoundId { get; set; }
 
-        [Required]
-        public int Score { get; set; }
+        public decimal Score { get; set; }
 
-        [JsonIgnore]
+        public User User { get; set; }
         public Round Round { get; set; }
     }
 }

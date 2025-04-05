@@ -4,7 +4,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PainelGilberto.Models
 {
-    [Table("Rounds")]
     public class Round
     {
         [Key]
@@ -13,14 +12,13 @@ namespace PainelGilberto.Models
         [Required]
         public int RoundNumber { get; set; }
 
-        [DataType(DataType.DateTime)]
-        public DateTime? StartDateTime { get; set; }
-
-        [DataType(DataType.DateTime)]
-        public DateTime? EndDateTime { get; set; }
-
-        [Required]
+        [ForeignKey("Season")]
         public int SeasonId { get; set; }
+
+        public DateTime StartDateTime { get; set; }
+        public DateTime EndDateTime { get; set; }
+
         public Season Season { get; set; }
+        public ICollection<UserRoundScore> UserRoundScores { get; set; } = new List<UserRoundScore>();
     }
 }

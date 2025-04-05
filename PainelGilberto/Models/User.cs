@@ -3,21 +3,22 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PainelGilberto.Models
 {
-    [Table("Users")]
     public class User
     {
         [Key]
         public int Id { get; set; }
 
-        [Required]
-        [StringLength(100)]
-        public string FirstName { get; set; } = string.Empty;
+        [Required, MaxLength(50)]
+        public string Username { get; set; }
 
-        [Required]
-        [StringLength(100)]
-        public string LastName { get; set; } = string.Empty;
+        [MaxLength(100)]
+        public string FirstName { get; set; }
+
+        [MaxLength(100)]
+        public string LastName { get; set; }
 
         [Required]
         public long TelegramUserId { get; set; }
+        public ICollection<UserRoundScore> UserRoundScores { get; set; } = new List<UserRoundScore>();
     }
 }

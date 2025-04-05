@@ -6,7 +6,6 @@ using System.Text.Json.Serialization;
 
 namespace PainelGilberto.Models
 {
-    [Table("Seasons")]
     public class Season
     {
         [Key]
@@ -15,10 +14,8 @@ namespace PainelGilberto.Models
         [Required]
         public int Year { get; set; }
 
-        [DataType(DataType.Date)]
-        public DateTime? StartDate { get; set; }
-
-        [JsonIgnore]
+        [Required]
+        public DateTime StartDate { get; set; }
         public ICollection<Round> Rounds { get; set; } = new List<Round>();
     }
 }
