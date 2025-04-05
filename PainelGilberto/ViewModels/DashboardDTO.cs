@@ -10,7 +10,7 @@
     public class UserRankingDTO
     {
         public string UserName { get; set; } = string.Empty;
-        public int TotalSeasonPoints { get; set; }
+        public decimal TotalSeasonPoints { get; set; }
         public string? MovementIndicator { get; set; }
     }
 
@@ -23,12 +23,12 @@
     public class CumulativeScorePointDTO
     {
         public int RoundNumber { get; set; }
-        public int CumulativeScore { get; set; }
+        public decimal CumulativeScore { get; set; }
     }
 
     public class UserRoundScoreDTO
     {
         public string UserName { get; set; } = string.Empty;
-        public int RoundScore { get; set; }
+        public decimal RoundScore { get; set; }
     }
 }

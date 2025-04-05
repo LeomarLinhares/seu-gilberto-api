@@ -108,13 +108,13 @@ namespace PainelGilberto.Services
             foreach (var user in users)
             {
                 var userScores = userRoundScores.Where(x => x.UserId == user.Id).ToList();
-                int runningTotal = 0;
+                decimal runningTotal = 0;
                 var pointsList = new List<CumulativeScorePointDTO>();
 
                 // Para cada rodada, soma a pontuação e guarda o total acumulado
                 foreach (var round in rounds)
                 {
-                    int roundScore = userScores
+                    decimal roundScore = userScores
                         .Where(x => x.RoundId == round.Id)
                         .Sum(x => x.Score);
 
@@ -151,7 +151,7 @@ namespace PainelGilberto.Services
                     // Gera a lista para cada usuário
                     currentRoundScores = users.Select(u =>
                     {
-                        int score = ursCurrentRound
+                        decimal score = ursCurrentRound
                             .Where(x => x.UserId == u.Id)
                             .Sum(x => x.Score);
 
