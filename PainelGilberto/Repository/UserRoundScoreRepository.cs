@@ -17,5 +17,12 @@ namespace PainelGilberto.Repository
                 .Where(urs => urs.UserId == userId && urs.RoundId == roundId)
                 .FirstOrDefaultAsync();
         }
+
+        public async Task<List<UserRoundScore>> GetbyRoundId(int roundId)
+        {
+            return await _context.UserRoundScores
+                .Where(urs => urs.RoundId == roundId)
+                .ToListAsync();
+        }
     }
 }

@@ -11,8 +11,8 @@ using PainelGilberto.Data;
 namespace PainelGilberto.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250407083038_Inicio")]
-    partial class Inicio
+    [Migration("20250407084036_BaseModel")]
+    partial class BaseModel
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -95,6 +95,9 @@ namespace PainelGilberto.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("RankingScore")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("RoundId")
