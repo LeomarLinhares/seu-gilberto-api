@@ -15,7 +15,7 @@ namespace PainelGilberto.Models
         [ForeignKey("Round")]
         public int RoundId { get; set; }
 
-        public decimal Score { get; set; }
+        public decimal? Score { get; set; }
         public int RankingScore { get; set; }
 
         public User User { get; set; }

@@ -68,31 +68,41 @@ namespace PainelGilberto.Services
                         userRoundScoreFromList = new UserRoundScore();
                         userRoundScoreFromList.UserId = userFromList.Id;
                         userRoundScoreFromList.RoundId = round.Id;
-                        userRoundScoreFromList.Score = 0;
+                        userRoundScoreFromList.Score = null;
                         userRoundScoreFromList.RankingScore = 0;
                         userAndRoundScores.Add(new Tuple<User, UserRoundScore>(userFromList, userRoundScoreFromList));
                     }
                 }
 
                 // vamos ordenar as tuplas pelo score
-                userAndRoundScores = userAndRoundScores.OrderByDescending(x => x.Item2.Score).ToList();
+                var scored = userAndRoundScores
+                    .Where(x => x.Item2.Score != null)
+                    .OrderByDescending(x => x.Item2.Score)
+                    .ToList();
+
+                var unscored = userAndRoundScores
+                    .Where(x => x.Item2.Score == null)
+                    .ToList();
+
+                userAndRoundScores = scored.Concat(unscored).ToList();
 
                 // agora com as tuplas definidas, vamos calcular o ranking score
                 // o ranking score é a posição do usuário no ranking daquela rodada - 1
                 // agora vamos atualizar o score do usuário e o ranking score de todos
-                foreach (Tuple<User, UserRoundScore> userAndRoundScore in userAndRoundScores)
+                for (int i = 0; i < userAndRoundScores.Count; i++)
                 {
-                    if (userAndRoundScore.Item1.Id == user.Id)
+                    var tuple = userAndRoundScores[i];
+
+                    // Se for o usuário que enviou a pontuação agora
+                    if (tuple.Item1.Id == user.Id)
                     {
-                        userAndRoundScore.Item2.Score = scoreNotation.Score;
-                        userAndRoundScore.Item2.RankingScore = allUsers.Count() - userAndRoundScores.IndexOf(userAndRoundScore) - 1;
+                        tuple.Item2.Score = scoreNotation.Score;
                     }
-                    else
-                    {
-                        userAndRoundScore.Item2.Score = userAndRoundScore.Item2.Score;
-                        userAndRoundScore.Item2.RankingScore = allUsers.Count() - userAndRoundScores.IndexOf(userAndRoundScore) - 1;
-                    }
-                    _userRoundScoreRepository.Update(userAndRoundScore.Item2);
+
+                    // Ranking só se tiver pontuado
+                    tuple.Item2.RankingScore = tuple.Item2.Score != null ? allUsers.Count() - i - 1 : 0;
+
+                    _userRoundScoreRepository.Update(tuple.Item2);
                 }
 
                 // agora vamos tratar empates, ou seja, se dois ou mais usuários tiverem o mesmo score o ranking score deles deve ser o mesmo

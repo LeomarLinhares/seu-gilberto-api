@@ -89,7 +89,7 @@ namespace PainelGilberto.Services
                 return new UserRankingDTO
                 {
                     UserName = $"{u.FirstName} {u.LastName}",
-                    TotalSeasonPoints = currentTotal,
+                    TotalSeasonPoints = currentTotal ?? 0,
                     MovementIndicator = movementIndicator
                 };
             })
@@ -116,7 +116,7 @@ namespace PainelGilberto.Services
                 {
                     decimal roundScore = userScores
                         .Where(x => x.RoundId == round.Id)
-                        .Sum(x => x.Score);
+                        .Sum(x => x.Score ?? 0);
 
                     runningTotal += roundScore;
 
@@ -153,7 +153,7 @@ namespace PainelGilberto.Services
                     {
                         decimal score = ursCurrentRound
                             .Where(x => x.UserId == u.Id)
-                            .Sum(x => x.Score);
+                            .Sum(x => x.Score ?? 0);
 
                         return new UserRoundScoreDTO
                         {
